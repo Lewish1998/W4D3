@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <p>Author: {{ author.first_name }} {{ author.last_name}}</p>
+        <form class='delete-book' action='/books/{{ author.id }}/delete' method='POST'>
+            <button class='delete_button'>Delete</button>
+</div>
+
+{% endblock %}
