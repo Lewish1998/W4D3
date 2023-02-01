@@ -1,3 +1,4 @@
+import pdb
 from flask import Flask, render_template, redirect, request
 from flask import Blueprint
 from repositories import author_repository
@@ -86,15 +87,37 @@ def edit_book(id):
     return render_template('books/edit.html', book=book, authors=authors)
 
 
-# update book
+
+
+
+
+
+# update book - why wont you work??????????????
 @library_blueprint.route('/books/<id>', methods=['POST'])
 def update_book(id):
     title = request.form['title']
     author_id = request.form['author_id']
     author = author_repository.select(author_id)
-    book = Book(title, author, id)
+    test = author.first_name, author.last_name, author.id
+    print(author.first_name) # able to print author id but not first name??
+    book = Book(title, author.id, id)
+
+    # print(book.author.id) # still able to access this
+    # Can't adapt type Author 
+
+
+#     # most recent error: column "author" is of type integer but expression is of type record
+# LINE 1: UPDATE books SET (title, author) = ('Nation', ('Randolph', '...
+# HINT:  You will need to rewrite or cast the expression.
+
+
     book_repository.update(book)
     return redirect('/books')
+
+
+
+
+
 
 
 # delete book
