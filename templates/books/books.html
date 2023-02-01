@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for book in books %}
+<div class='book_title'> 
+    <a href='books/{{book.id}}'><h2>Title: {{ book.title }}</h2></a>
+</div>
+{% for author in authors %}
+    {% if book.author == author.id %}
+        <h2>Author: {{ author.first_name }} {{ author.last_name }}
+    {% endif %}{% endfor %}
+{% endfor %}
+
+
+{% endblock %}
