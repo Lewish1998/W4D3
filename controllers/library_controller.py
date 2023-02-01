@@ -20,7 +20,7 @@ def authors():
 
 # New task
 # get request
-@library_blueprint.route('/add', methods=['GET'])
+@library_blueprint.route('/books/add', methods=['GET'])
 def new_book():
     authors = author_repository.select_all()
     return render_template('books/add.html', authors = authors)
@@ -30,8 +30,8 @@ def new_book():
 @library_blueprint.route('/books', methods=['POST'])
 def add_book():
     title = request.form['title']
-    # author_id = request.form['author_id']
-    author = author_repository.select(request.form['author_id'])
+    author_id = request.form['author_id']
+    author = author_repository.select(author_id)
     book = Book(title, author)
     book_repository.save(book)
     return redirect ('/books')
@@ -46,9 +46,23 @@ def show_book(id):
 
 # edit task
 # get request
+@library_blueprint.route('/books/<id>/edit', methods=['GET'])
+def edit_book(id):
+    book = book_repository.select(id)
+    authors = author_repository.select_all()
+    return render_template('books/edit.html', book=book, authors=authors)
+
 
 # update task
 # post request 
+@library_blueprint.route('/books/<id>', methods=['POST'])
+def update_book(id):
+    title = request.form['title']
+    author_id = request.form['author_id']
+    author = author_repository.select(author_id)
+    book = Book(title, author, id)
+    book_repository.update(book)
+    return redirect('/books')
 
 
 # delete task
