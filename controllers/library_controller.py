@@ -45,8 +45,8 @@ def show_author(id):
 
 
 
-# delete author
-@library_blueprint.route('/books/<id>/delete', methods=['POST'])
+# # delete author
+@library_blueprint.route('/authors/<id>/delete', methods=['POST'])
 def delete_author(id):
     author_repository.delete(id)
     return redirect('/books')
@@ -98,20 +98,19 @@ def update_book(id):
     title = request.form['title']
     author_id = request.form['author_id']
     author = author_repository.select(author_id)
-    print(author.first_name)
+    # print(author.first_name)
     book = Book(title, author.id, id)
     book_repository.update(book)
     return redirect('/books')
 
 
-
-
-
-
-
 # delete book
 @library_blueprint.route('/books/<id>/delete', methods=['POST'])
 def delete_book(id):
+    # pdb.set_trace()
     book_repository.delete(id)
-    print(id)
+    # print(id)
     return redirect('/books')
+
+# update or delete on table "authors" violates foreign key constraint "books_author_fkey" on table "books"
+# DETAIL:  Key (id)=(1) is still referenced from table "books".

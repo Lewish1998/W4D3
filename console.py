@@ -4,6 +4,9 @@ from models.book import Book
 import repositories.author_repository as author_repository
 import repositories.book_repository as book_repository
 
+book_repository.delete_all()
+author_repository.delete_all()
+
 # author_1 = Author('Terry', 'Pratchet')
 # author_repository.save(author_1)
 # author_2 = Author('Randolph', 'Lam')
@@ -17,4 +20,4 @@ import repositories.book_repository as book_repository
 # book_repository.save(book_3)
 
 # book_repository.update(book_1)
-pdb.set_trace()
+# pdb.set_trace()
